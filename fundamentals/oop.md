@@ -114,13 +114,13 @@ There's some odd things here! First, our `Store` function has an initial capital
 
 Notice inside the function that we don't generate an object. All it's doing is assigning props to a `this` object and not returning anything.
 
-Why? Because when we call `Store()` at the bottom, we prefix with the `new` keyword. It has very special meaning in JavaScript and invokes the `Store()` function with certain hidden behavior. This includes automatically returning an object containing anything we placed on `this`, and attaching the special `prototype` property to the returned object.
+Why? Because when we call `Store()` at the bottom, we prefix with the `new` keyword. It has very special meaning in JavaScript and invokes the `Store()` function with certain hidden behavior. This includes automatically returning an object with all the properties we placed on `this`, and linking the object's prototype chain the the `Store.prototype` object.
 
-We place our prototype methods directly on the `Store.prototype` object and this now means they will be available to all `Store` "instances."
+We place our prototype methods directly on the `Store.prototype` object and this now means they will be available to all `Store` **instances**. (An instance is an object created from a class.)
 
 ### ES6 always has another way
 
-ES6 created some **syntactic sugar** for our function constructor above which most closely resembles how class-oriented languages build objects:
+ES6 created some [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar) for our function constructor above which most closely resembles how class-oriented languages build objects:
 
 ```javascript
 class Store {
@@ -153,7 +153,7 @@ If you haven't used class-oriented languages before this course, then these desc
 
 ### Private data
 
-It's a common use case in programming that our objects will hold data we want to be more difficult to access. 
+It's a common use case in programming for us to want objects with data that is sometimes more difficult to access.
 
 For example, imagine a class for a bank account where you have a balance and want to enable withdrawals. You want to be able to read the account balance (`account.balance`), but you *don't* want the ability to **set** the balance directly (`account.balance = 50`).  Instead you want to call a withdraw method that will take care of reconciling the balance and ensuring you have the funds to withdraw (`account.withdraw(50)`).
 
@@ -167,7 +167,7 @@ class BankAccount {
 }
 
 const johnAccount = new BankAccount();
-johnAccount.balance = 200;  // => Would work!
+johnAccount.balance = 200;  // => This works but we don't want it to!
 ```
 
 In class-oriented languages, there are built-in protections for creating private data and methods. In JavaScript, there are only standards and patterns you can adopt to emulate this. We're not going to learn all of those today; instead, we'll cover one convention used that indicates to a programmer they should not touch the property directly - the underscore `_` prefix.
@@ -199,7 +199,7 @@ johnAccount.withdraw(200);              // => Error: Your balance is insufficien
 
 In the above example, we have "hidden" the actual balance on a property prefixed with `_`, shown in the constructor as `this._balance`. JavaScript won't prevent access, but as a developer, you should know not to access data named with a prefix directly. To get the balance, we've built a `getBalance()` method that will deliver the value of the `_balance` property and there's no 'setter' method as we don't want to set the balance directly. Then our `withdraw()` method does the necessary check and changes our `_balance`.
 
->**ASIDE:** JavaScript's `class` syntax provides for special *getter/setter* methods also known as accessors, which are common in class oriented languages, but we're going to save those extra concepts for future lessons.
+>**ASIDE:** JavaScript's `class` syntax provides special *getter/setter* methods also known as accessors, which are common in class oriented languages, but we're going to save those extra concepts for future lessons.
 
 ### Exercise
 
