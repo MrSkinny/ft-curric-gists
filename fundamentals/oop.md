@@ -90,7 +90,7 @@ The solution for this is **inheritance**, another OOP concept. Specifically, in 
 
 >**ASIDE:** There's [long, involved reading](https://medium.com/javascript-scene/master-the-javascript-interview-what-s-the-difference-between-class-prototypal-inheritance-e4cd0a7562e9) on the topic of **prototypal inheritance** vs **classical inheritance**, which is used in many class-oriented programming languages. Keep this in your "Read Later" materials; just know that these different types of inheritance structures exist.
 
-So, what does this mean? Every object in JavaScript exists on the **prototype chain**, which always leads back to the global `Object`. Similar to scope chain, every object can see into its parent prototype object. By having a common parent prototype, a single method can live in one place in memory, but be naturally utilized by unlimited objects derived from the prototype.
+So, what does this mean? Every object in JavaScript exists on the **prototype chain**, which always leads back to the global `Object`. Similar to scope chain, every object can see into its parent prototype object. By having a common parent prototype, a single method (or attribute) can live in one place in memory, but be naturally utilized by unlimited objects derived from the prototype.
 
 As with many things in JavaScript there are multiple syntaxes to achieve this. The first we'll look at is **constructor functions**:
 
